@@ -1,17 +1,29 @@
 import { Refine, Authenticated } from "@refinedev/core";
 import { ProductProvider } from "../shared/providers/product.provider";
 import CategoryProvider from "../shared/providers/category.provider";
-
+import { lazy } from "react";
 import routerProvider from "@refinedev/react-router";
 import { authProvider } from "../shared/providers/auth.provider";
 import { Toaster } from "react-hot-toast";
 
-import { BrowserRouter, Navigate, Route, Routes, Outlet } from "react-router";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  Outlet,
+  useLocation,
+} from "react-router";
 import { JSX } from "react/jsx-runtime";
 
 import ShowProduct from "../components/ShowProduct/ShowProduct";
-import ListCategory from "../components/ListCategory/ListCategory";
+const ListCategory = lazy(
+  () => import("../components/ListCategory/ListCategory"),
+);
 import DashboardLayout from "../layout/DashBoardLayout";
+const CreateCategoryModal = lazy(
+  () => import("../components/Category/CreateCategory/CreateCategoryModal"),
+);
 
 import "./global.css";
 import Login from "../components/Auth/Login/Login";
@@ -71,8 +83,12 @@ export default function App(): JSX.Element {
             }
           >
             <Route index element={<ShowProduct />} />
-            <Route path="/category" element={<ListCategory />} />
+
+            <Route path="/category" element={<ListCategory />}>
+              <Route path="create" element={<CreateCategoryModal />} />
+            </Route>
           </Route>
+
           <Route
             element={
               <Authenticated key="auth-pages" fallback={<Outlet />}>
@@ -82,6 +98,7 @@ export default function App(): JSX.Element {
           >
             <Route path="/login" element={<Login />} />
           </Route>
+
           <Route path="/onboarding" element={<Onboarding />} />
         </Routes>
       </Refine>
