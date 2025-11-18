@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+
+
+:root {
+  --background: #f5f4f2;
+  --foreground: #171717;
+}
+
+@theme  {
+  --color-black: #0d0d0d;
+  --color-cream: #f5f4f2;
+  --color-gray-neutral-100: #edecea;
+  --color-gray-neutral-200: #e8e7e5;
+  --color-gray-neutral-300: #dbdad8;
+  --color-gray-neutral-400: #d1d0cd;
+  --color-gray-neutral-500: #aaaaaa;
+  --color-gray-neutral-600: #727170;
+  --color-gray-neutral-700: #69696c;
+}
+
+
+
+.container {
+  margin:auto;
+    width: 100%;
+    @media (width >= 40rem /* 640px */) {
+        max-width: 40rem /* 640px */;
+    }
+    @media (width >= 48rem /* 768px */) {
+        max-width: 44rem /* 768px */;
+    }
+    @media (width >= 64rem /* 1024px */) {
+        max-width: 60rem /* 1024px */;
+    }
+    @media (width >= 80rem /* 1280px */) {
+        max-width: 80rem /* 1280px */;
+    }
+    @media (width >= 112rem /* 1536px */) {
+        max-width: 112rem /* 1536px */;
+    }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;     
+}
+
+body {
+  background: var(--background);
+  overflow-x: hidden;
+}
+
+
+.glass {
+  background-color: rgba(191, 188, 188, 0.25);
+  --tw-bg-opacity: 0.25;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  transition-property: transform, opacity;
+}
