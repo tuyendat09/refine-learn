@@ -22,7 +22,6 @@ const CategoryProvider: DataProvider = {
 
     const response = await handleGetOneCategory(id);
 
-
     return {
       data: response as unknown as TData,
     };
@@ -45,6 +44,7 @@ const CategoryProvider: DataProvider = {
   getList: async ({ pagination }) => {
     const page = pagination?.currentPage ?? 1;
     const limit = pagination?.pageSize ?? 10;
+    console.log(pagination);
 
     const response = await handleGetQueryCategory({ page, limit });
 

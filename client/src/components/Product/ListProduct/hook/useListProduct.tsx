@@ -2,7 +2,7 @@ import { useTable } from "@refinedev/antd";
 import {
   CustomGetListParams,
   Product,
-} from "../../../../shared/types/ProductApi";
+} from "../../../../../shared/types/ProductApi";
 
 export default function useListProduct() {
   const { tableProps, setCurrentPage, currentPage, sorters } =

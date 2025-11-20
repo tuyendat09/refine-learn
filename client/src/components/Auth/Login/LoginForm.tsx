@@ -5,10 +5,7 @@ import { clsx } from "clsx";
 import useCustomLogin from "../hook/useCustomLogin";
 
 export default function LoginForm() {
-  const { handleLogin, data, usernameRef, passwordRef, isPending } =
-    useCustomLogin();
-
-  console.log(data);
+  const { handleLogin, usernameRef, passwordRef, isPending } = useCustomLogin();
 
   return (
     <div

@@ -1,30 +1,33 @@
 import { Refine, Authenticated } from "@refinedev/core";
 
-import { ProductProvider } from "../shared/providers/product.provider";
-import CategoryProvider from "../shared/providers/category.provider";
+import { ProductProvider } from "./shared/providers/product.provider";
+import CategoryProvider from "./shared/providers/category.provider";
 import { lazy } from "react";
 import routerProvider from "@refinedev/react-router";
-import { authProvider } from "../shared/providers/auth.provider";
+import { authProvider } from "./shared/providers/auth.provider";
 import { Toaster } from "react-hot-toast";
 
 import { BrowserRouter, Navigate, Route, Routes, Outlet } from "react-router";
 import { JSX } from "react/jsx-runtime";
 
-import ShowProduct from "../components/Product/ListProduct/ListProduct";
+import ShowProduct from "./components/Product/ListProduct/ListProduct";
 const ListCategory = lazy(
-  () => import("../components/ListCategory/ListCategory"),
+  () => import("./components/Category/ListCategory/ListCategory"),
 );
 import DashboardLayout from "../layout/DashBoardLayout";
 const CreateCategoryModal = lazy(
-  () => import("../components/Category/CreateCategory/CreateCategoryModal"),
+  () => import("./components/Category/CreateCategory/CreateCategoryModal"),
 );
 const EditCategoryModal = lazy(
-  () => import("../components/Category/EditCategory/EditCategoryModal"),
+  () => import("./components/Category/EditCategory/EditCategoryModal"),
+);
+const CreateProductModal = lazy(
+  () => import("./components/Product/CreateProduct/CreateProductModal"),
 );
 
 import "./global.css";
-import Login from "../components/Auth/Login/Login";
-import Onboarding from "../components/Auth/Onboarding/Onboarding";
+import Login from "./components/Auth/Login/Login";
+import Onboarding from "./components/Auth/Onboarding/Onboarding";
 
 export default function App(): JSX.Element {
   return (
@@ -41,7 +44,7 @@ export default function App(): JSX.Element {
             show: "/products/:id",
             edit: "/products/:id/edit",
             create: "/products/create",
-            meta: { label: "products", dataProviderName: "default" },
+            meta: { label: "products" },
           },
           {
             name: "protected-category",
@@ -80,7 +83,7 @@ export default function App(): JSX.Element {
             }
           >
             <Route path="/" element={<ShowProduct />}>
-              <Route path="products/create" element={<CreateCategoryModal />} />
+              <Route path="products/create" element={<CreateProductModal />} />
             </Route>
             <Route path="/category" element={<ListCategory />}>
               <Route path="create" element={<CreateCategoryModal />} />

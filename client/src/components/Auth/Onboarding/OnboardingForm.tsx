@@ -40,6 +40,7 @@ export default function OnboardingForm() {
 
           <button />
           <button
+            type="button"
             onClick={() => handleTransition("/login")}
             className="text-sm text-gray-400 ml-2 text-left cursor-pointer hover:text-white transition"
           >

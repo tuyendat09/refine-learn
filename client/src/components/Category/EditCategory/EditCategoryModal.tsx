@@ -1,12 +1,12 @@
-import Button from "../../../shared/components/Button";
-import Modal from "../../../shared/components/Modal/Modal";
-import ModalContent from "../../../shared/components/Modal/ModalContent";
-import ModalHeader from "../../../shared/components/Modal/ModalHeader";
-import ModalBody from "../../../shared/components/Modal/ModalBody";
-import ModalFooter from "../../../shared/components/Modal/ModalFooter";
-import useToggle from "../../../shared/hooks/useToggle";
+import Button from "../../../src/shared/components/Button";
+import Modal from "../../../src/shared/components/Modal/Modal";
+import ModalContent from "../../../src/shared/components/Modal/ModalContent";
+import ModalHeader from "../../../src/shared/components/Modal/ModalHeader";
+import ModalBody from "../../../src/shared/components/Modal/ModalBody";
+import ModalFooter from "../../../src/shared/components/Modal/ModalFooter";
+import useToggle from "../../../src/shared/hooks/useToggle";
 import { useNavigate } from "react-router";
-import FloatingInput from "../../../shared/components/Input/FloatingInput";
+import FloatingInput from "../../../src/shared/components/Input/FloatingInput";
 import useEditCategory from "./hook/useEditCategory";
 import { Skeleton } from "antd";
 

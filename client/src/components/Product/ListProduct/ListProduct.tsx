@@ -9,7 +9,16 @@ const ListProduct = () => {
   const { tableProps, sorters } = useListProduct();
 
   return (
-    <List breadcrumb={false} canCreate>
+    <List
+      breadcrumb={false}
+      canCreate
+      createButtonProps={{
+        style: {
+          backgroundColor: "#0d0d0d",
+          borderRadius: "20px",
+        },
+      }}
+    >
       <Table
         {...tableProps}
         pagination={{
