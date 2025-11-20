@@ -7,7 +7,6 @@ exports.handleLogin = asyncHandler(async (req, res) => {
     username,
     password
   );
-  console.log(token);
   if (!success) {
     let message = "Something wrong";
     switch (code) {

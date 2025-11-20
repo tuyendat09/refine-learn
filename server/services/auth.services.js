@@ -1,7 +1,7 @@
 const User = require("../model/User");
 const bcrypt = require("bcrypt");
 const SALT = 10;
-const userUtils = require("../utils/user.utils");
+const verifyUtils = require("../utils/verify.utils");
 const jwtUtils = require("../utils/jwt.utils");
 
 async function handleCreateUser(username, password) {
@@ -11,7 +11,9 @@ async function handleCreateUser(username, password) {
 }
 
 exports.handleRegister = async (username, password) => {
-  const duplicatedResult = await userUtils.handleCheckDuplicatedUser(username);
+  const duplicatedResult = await verifyUtils.handleCheckDuplicatedUser(
+    username
+  );
   console.log(duplicatedResult);
   if (!duplicatedResult.success) return duplicatedResult;
 
@@ -21,7 +23,7 @@ exports.handleRegister = async (username, password) => {
 };
 
 exports.handleLogin = async (username, password) => {
-  const verifyPasswordResult = await userUtils.handleVerifyUserPassword(
+  const verifyPasswordResult = await verifyUtils.handleVerifyUserPassword(
     username,
     password
   );

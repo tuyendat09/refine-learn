@@ -14,6 +14,10 @@ const productSchema = new Schema(
       type: String,
       required: true,
     },
+    productQuantity: {
+      type: Number,
+      required: true,
+    },
 
     productCategory: {
       type: ObjectId,
