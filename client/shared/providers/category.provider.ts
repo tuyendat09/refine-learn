@@ -1,15 +1,46 @@
-import type { DataProvider } from "@refinedev/core";
+import type {
+  BaseRecord,
+  DataProvider,
+  GetOneParams,
+  GetOneResponse,
+  UpdateParams,
+  UpdateResponse,
+} from "@refinedev/core";
 import {
   handleGetQueryCategory,
   handleDeleteCategory,
+  handleCreateNewCategory,
+  handleGetOneCategory,
+  handleUpdateCategory,
 } from "../../shared/apis/CategoryApi";
 
 const CategoryProvider: DataProvider = {
-  getOne: () => {
-    throw new Error("Not implemented");
+  getOne: async <TData extends BaseRecord = BaseRecord>(
+    params: GetOneParams,
+  ): Promise<GetOneResponse<TData>> => {
+    const { id } = params;
+
+    const response = await handleGetOneCategory(id);
+
+
+    return {
+      data: response as unknown as TData,
+    };
   },
-  update: () => {
-    throw new Error("Not implemented");
+
+  update: async <TData extends BaseRecord = BaseRecord, TVariables = string>(
+    params: UpdateParams<TVariables>,
+  ): Promise<UpdateResponse<TData>> => {
+    const { id, variables } = params;
+
+    const response = await handleUpdateCategory(
+      id,
+      variables as unknown as string,
+    );
+
+    return {
+      data: response as unknown as TData,
+    };
   },
   getList: async ({ pagination }) => {
     const page = pagination?.currentPage ?? 1;
@@ -23,8 +54,9 @@ const CategoryProvider: DataProvider = {
     };
   },
 
-  create: () => {
-    throw new Error("Not implemented");
+  create: ({ variables }) => {
+    const response = handleCreateNewCategory(variables as string);
+    return response;
   },
   deleteOne: ({ id }) => {
     const response = handleDeleteCategory(id);

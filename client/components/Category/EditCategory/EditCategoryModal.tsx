@@ -7,10 +7,18 @@ import ModalFooter from "../../../shared/components/Modal/ModalFooter";
 import useToggle from "../../../shared/hooks/useToggle";
 import { useNavigate } from "react-router";
 import FloatingInput from "../../../shared/components/Input/FloatingInput";
-import useCreateNewCategory from "./hook/useCreateCategory";
+import useEditCategory from "./hook/useEditCategory";
+import { Skeleton } from "antd";
 
-export default function CreateCategoryModal() {
-  const { newCategoryNameRef, handleCreate } = useCreateNewCategory();
+export default function EditCategoryModal() {
+  const {
+    result,
+    isLoading,
+    categoryName,
+    handleChangeCategoryName,
+    handleEdit,
+    isPending,
+  } = useEditCategory();
 
   const navigate = useNavigate();
   const { toggle, handleToggle } = useToggle({ initialState: true });
@@ -24,27 +32,49 @@ export default function CreateCategoryModal() {
     setTimeout(() => goBackRoute(), 500);
   }
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleEdit();
+    }
+  };
+
   return (
     <Modal isOpen={toggle} onClose={customHandleToggle} size="md">
       <ModalContent>
         <ModalHeader>
           <div className="text-center font-normal">
-            <h1 className="font-serif mb-3">New Category Name</h1>
+            <h1 className="font-serif mb-3">Edit Category Name</h1>
           </div>
         </ModalHeader>
         <ModalBody>
           <div>
-            <FloatingInput
-              inputRef={newCategoryNameRef}
-              clearBackground
-              name="categoryName"
-              label="Category Name"
-            />
+            {!isLoading && (
+              <FloatingInput
+                onKeyDown={(e) => handleKeyDown(e)}
+                value={categoryName}
+                onChange={(e) => handleChangeCategoryName(e)}
+                clearBackground
+                name="categoryName"
+                label="Category Name"
+              />
+            )}
+
+            {isLoading && <Skeleton.Input active={true} block={true} />}
           </div>
         </ModalBody>
         <ModalFooter>
-          <Button onClick={handleCreate} fullWidth size="lg" variant="black">
-            Create
+          <Button
+            onClick={() => handleEdit()}
+            isDisable={
+              result?.category.categoryName == categoryName ||
+              isPending ||
+              isLoading
+            }
+            fullWidth
+            size="lg"
+            variant="black"
+          >
+            Save
           </Button>
         </ModalFooter>
       </ModalContent>

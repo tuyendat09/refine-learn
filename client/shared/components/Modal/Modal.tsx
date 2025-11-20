@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { createPortal } from "react-dom";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, memo } from "react";
 import clsx from "clsx";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
@@ -19,7 +19,7 @@ const sizeClasses = {
   xl: "max-w-3xl",
 };
 
-export default function Modal({
+function Modal({
   isOpen,
   onClose,
   children,
@@ -56,7 +56,7 @@ export default function Modal({
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 z-[9999] flex items-center justify-center"
+          className="fixed inset-0 z-9999 flex items-center justify-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -90,3 +90,5 @@ export default function Modal({
     document.body,
   );
 }
+
+export default Modal;

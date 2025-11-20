@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 export default function useCategory() {
   const { tableProps, setCurrentPage, currentPage } = useTable({
     resource: "protected-category",
-    pagination: { currentPage: 1, pageSize: 3 },
+    pagination: { currentPage: 1, pageSize: 15 },
   });
   const { mutate } = useDelete();
 
@@ -24,10 +24,11 @@ export default function useCategory() {
   function handleBackPage() {
     if (tableProps.dataSource?.length === 1) {
       setCurrentPage(currentPage - 1);
-      console.log("1");
     }
-    console.log(currentPage);
   }
 
-  return { tableProps, handleDeleteCategory };
+  return {
+    tableProps,
+    handleDeleteCategory,
+  };
 }

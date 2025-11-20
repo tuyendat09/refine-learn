@@ -1,14 +1,24 @@
 import useCategory from "./hook/useCategory";
 import { List } from "@refinedev/antd";
 import { Table } from "antd";
-import { Outlet } from "react-router";
+import { Outlet, useNavigate } from "react-router";
+import { Icon } from "@iconify/react";
 
 export default function ListCategory() {
   const { tableProps, handleDeleteCategory } = useCategory();
+  const navigate = useNavigate();
 
   return (
     <>
-      <List>
+      <List
+        breadcrumb={false}
+        createButtonProps={{
+          style: {
+            backgroundColor: "#0d0d0d",
+            borderRadius: "20px",
+          },
+        }}
+      >
         <Table
           {...tableProps}
           pagination={{
@@ -18,20 +28,30 @@ export default function ListCategory() {
           rowKey="id"
         >
           <Table.Column dataIndex="_id" title="ID" />
-          <Table.Column dataIndex="categoryName" title="Category Name" />
           <Table.Column
-            dataIndex="status"
-            title="Status"
+            title="Category Name"
             render={(_, record) => (
-              <div className="space-x-2 ">
-                <button>Edit</button>
+              <div className="flex gap-2">
+                <p>{record.categoryName}</p>
                 <button
-                  className="cursor-pointer bg-black px-4 py-1 rounded-full text-white hover:bg-gray-neutral-700 transition duration"
-                  onClick={() => handleDeleteCategory(record._id)}
+                  onClick={() => navigate(`edit/${record._id}`)}
+                  className="cursor-pointer"
                 >
-                  Delete
+                  <Icon icon="guidance:pen" width="16" height="16" />
                 </button>
               </div>
+            )}
+          />
+          <Table.Column
+            dataIndex="status"
+            title="Action"
+            render={(_, record) => (
+              <button
+                className="cursor-pointer bg-black px-4 py-1 rounded-full text-white hover:bg-gray-neutral-700 transition duration"
+                onClick={() => handleDeleteCategory(record._id)}
+              >
+                Delete
+              </button>
             )}
           />
         </Table>

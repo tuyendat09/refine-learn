@@ -1,3 +1,13 @@
+export interface ICategoryReponse {
+  success: boolean;
+  message: string;
+}
+
+export interface ICreateCategoryReponse {
+  success: boolean;
+  message: string;
+}
+
 export interface ICategoryQueryParams {
   page: number;
   limit: number;
@@ -19,4 +29,14 @@ export interface GetCategoryResponse {
     };
   };
   success?: boolean;
+}
+
+export interface GetOneCategoryParams {
+  id: string;
+}
+
+export interface GetOneCategoryResponse {
+  success: boolean;
+  message?: string;
+  category: Category;
 }

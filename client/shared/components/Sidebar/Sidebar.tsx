@@ -3,55 +3,103 @@ import { clsx } from "clsx";
 import { Icon } from "@iconify/react";
 import useSideBar from "./hooks/useSideBar";
 import { Link } from "react-router";
-import { useLogout, useGetIdentity, useNavigation } from "@refinedev/core";
-// import gsap from "gsap";
-// import { useGSAP } from "@gsap/react";
-// gsap.registerPlugin(useGSAP);
+import { motion } from "framer-motion";
 
 export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
   const { handleLogOut, user, linksArr } = useSideBar();
+  const hoverClass = "hover:bg-[#1D1F20] transition duration ";
 
   return (
-    <div
-      className={clsx(
-        "bg-black  text-white h-full transition-all duration-300 relative p-3",
-        collapsed ? "w-64" : "w-64",
-      )}
+    <motion.div
+      animate={{
+        width: collapsed ? 200 : 65,
+      }}
+      className=" h-screen"
     >
-      <p>Hello,{user}</p>
-      <button
-        onClick={() => setCollapsed(!collapsed)}
-        className="p-2 hover:bg-stone-700 w-full text-left"
-      >
-        {collapsed ? ">" : "<"}
-      </button>
-
-      <ul className="mt-4 px-2 flex flex-col gap-3 justify-center">
-        {linksArr.map((link) => (
-          <Link
-            to={link.url}
-            key={link.label}
-            className="flex gap-1 items-center"
-          >
-            {link.icon}
-            <li
-              key={link.label}
-              className="text-white whitespace-nowrap overflow-hidden"
-            >
-              {!collapsed && link.label}
-            </li>
-          </Link>
-        ))}
-
+      <div className="bg-black text-white h-full p-3  overflow-hidden">
+        <p className="p-2 mb-4">Hello,{collapsed ? user : ""}</p>
         <button
-          className="hover:text-gray-300 transition flex items-center gap-2 rounded-full absolute bottom-12 cursor-pointer "
-          onClick={handleLogOut}
+          onClick={() => setCollapsed(!collapsed)}
+          className={clsx(
+            "p-2  w-full text-left flex gap-2 items-center justify-between rounded-lg",
+            hoverClass,
+          )}
         >
-          <Icon icon="mdi:logout" width="20" height="20" />
-          Log Out
+          <div>
+            <motion.div
+              transition={{ type: "tween" }}
+              animate={{
+                opacity: collapsed ? 1 : 0,
+                x: collapsed ? 0 : 20,
+              }}
+            >
+              Dashboard
+            </motion.div>
+          </div>
+          <motion.div
+            className="text-white"
+            animate={{
+              x: collapsed ? 0 : -85,
+            }}
+            transition={{ type: "tween" }}
+          >
+            <Icon
+              className="-rotate-45"
+              icon="system-uicons:scale-extend"
+              width="20"
+              height="20"
+            />
+          </motion.div>
         </button>
-      </ul>
-    </div>
+
+        <ul className="mt-4 flex flex-col   h-[85%] gap-3 ">
+          {linksArr.map((link) => (
+            <Link
+              to={link.url}
+              key={link.label}
+              className={clsx(
+                "flex gap-1 items-center p-2 rounded-lg",
+                hoverClass,
+              )}
+            >
+              <div> {link.icon}</div>
+              <motion.li
+                transition={{ type: "tween" }}
+                animate={{
+                  opacity: collapsed ? 1 : 0,
+                  x: collapsed ? 0 : 20,
+                }}
+                key={link.label}
+                className="text-white whitespace-nowrap overflow-hidden"
+              >
+                {link.label}
+              </motion.li>
+            </Link>
+          ))}
+
+          <button
+            className={clsx(
+              "hover:text-gray-300 p-2 mt-auto transition flex items-center h-10 rounded-lg  cursor-pointer",
+              hoverClass,
+            )}
+            onClick={handleLogOut}
+          >
+            <div>
+              <Icon icon="mdi:logout" width="20" height="20" />
+            </div>
+            <motion.li
+              transition={{ type: "tween" }}
+              animate={{
+                opacity: collapsed ? 1 : 0,
+                x: collapsed ? 0 : 20,
+              }}
+            >
+              Log Out
+            </motion.li>
+          </button>
+        </ul>
+      </div>
+    </motion.div>
   );
 }

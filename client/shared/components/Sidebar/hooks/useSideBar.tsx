@@ -2,7 +2,7 @@ import { useLogout, useGetIdentity, useNavigation } from "@refinedev/core";
 import { Icon } from "@iconify/react";
 
 export default function useSidebar() {
-  const { listUrl, createUrl } = useNavigation();
+  const { listUrl } = useNavigation();
 
   const linksArr = [
     {
@@ -16,11 +16,6 @@ export default function useSidebar() {
       icon: (
         <Icon icon="material-symbols:category-outline" width={20} height={20} />
       ),
-    },
-    {
-      label: "Add Product",
-      url: createUrl("protected-products"),
-      icon: <Icon icon="si:add-line" width={20} height={20} />,
     },
   ];
   const { mutate } = useLogout();
